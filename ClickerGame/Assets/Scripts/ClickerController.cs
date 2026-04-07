@@ -3,9 +3,9 @@ using TMPro;
 
 public class ClickerController : MonoBehaviour
 {
-    private int clickCount;
+    private int currentClickCount;
     //[UI]
-    public TextMeshProUGUI clickCountText;
+    public TextMeshProUGUI currentClickCountText;
     public GameManager gameManager;
 
     void Start()
@@ -19,13 +19,11 @@ public class ClickerController : MonoBehaviour
         //if (!gameManager.isPlaying)
             //return;
 
-        clickCount = GameManager.totalClicks;
-        clickCountText.text = clickCount.ToString();
+        currentClickCountText.text = currentClickCount.ToString();
     }
 
     public void Click()
     {
-        Debug.Log("LMB clicked");
-        clickCount++;
+        currentClickCount++;
     }
 }
