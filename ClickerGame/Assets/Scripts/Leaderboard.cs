@@ -13,6 +13,13 @@ public class Leaderboard : MonoBehaviour
     public static Leaderboard instance;
     void Awake() { instance = this; }
 
+    private string apiUrl = "http://127.0.0.1:8000/";
+
+    void Start()
+    {
+        StartCoroutine(CallApi());
+    }
+
     public void OnLoggedIn()
     {
         leaderboardCanvas.SetActive(true);
@@ -56,5 +63,24 @@ public class Leaderboard : MonoBehaviour
             result => DisplayLeaderboard(),
             error => Debug.Log(error.ErrorMessage)
         );*/
+    }
+
+    IEnumerator CallApi()
+    {
+        using (UnityWebRequest request = UnityWebRequest.Get(apiUrl))
+        {
+            yield return request.SendWebRequest();
+
+            if (request.result == UnityWebRequest.Result.ConnectionError || 
+                request.result == UnityWebRequest.Result.ProtocolError)
+            {
+                Debug.LogError("API Error: " + request.error);
+            }
+            else
+            {
+                string jsonResponse = request.downloadHandler.text;
+                Debug.Log("API Response: " + jsonResponse);
+            }
+        }
     }
 }
