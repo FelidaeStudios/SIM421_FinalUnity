@@ -4,6 +4,7 @@ using UnityEngine;
 //using PlayFab;
 //using PlayFab.ClientModels;
 using TMPro;
+using UnityEngine.Networking;
 
 public class Leaderboard : MonoBehaviour
 {
@@ -20,7 +21,7 @@ public class Leaderboard : MonoBehaviour
         StartCoroutine(CallApi());
     }
 
-    public void OnLoggedIn()
+    /*public void OnLoggedIn()
     {
         leaderboardCanvas.SetActive(true);
         DisplayLeaderboard();
@@ -34,10 +35,10 @@ public class Leaderboard : MonoBehaviour
             MaxResultsCount = 10
         };
 
-        /*PlayFabClientAPI.GetLeaderboard(getLeaderboardRequest,
+        PlayFabClientAPI.GetLeaderboard(getLeaderboardRequest,
             result => UpdateLeaderboardUI(result.Leaderboard),
             error => Debug.Log(error.ErrorMessage)
-        );*/
+        );
     }
 
     void UpdateLeaderboardUI(List<PlayerLeaderboardEntry> leaderboard)
@@ -59,11 +60,11 @@ public class Leaderboard : MonoBehaviour
             FunctionName = "UpdateHighscore",
             FunctionParameter = new { score = newScore }
         };
-        /*PlayFabClientAPI.ExecuteCloudScript(request,
+        PlayFabClientAPI.ExecuteCloudScript(request,
             result => DisplayLeaderboard(),
             error => Debug.Log(error.ErrorMessage)
-        );*/
-    }
+        );
+    }*/
 
     IEnumerator CallApi()
     {
