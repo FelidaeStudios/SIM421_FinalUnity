@@ -1,37 +1,21 @@
 using UnityEngine;
-using TMPro;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.Networking;
+//using UnityEngine.SceneManagement;
 
-public class ClickerController : MonoBehaviour
+public class MenuController : MonoBehaviour
 {
-    private int currentClickCount;
+    //[Header("API")]
+    private string apiUrl = "http://127.0.0.1:8000/";
 
-    //Network
-    private string apiUrl = "http://127.0.0.1:8000/score";
-
-    //[UI]
-    public TextMeshProUGUI currentClickCountText;
-    public GameManager gameManager;
+    [Header("Menus")]
+    public GameObject loginMenu; //Login page
+    public GameObject registerMenu; //Registration page
+    public GameObject homeMenu; //Home page
 
     void Start()
     {
-        //Debug.Log(gameManager.totalClicks);
-        gameManager = GetComponent<GameManager>();
-    }
-
-    void Update()
-    {
-        //if (!gameManager.isPlaying)
-            //return;
-
-        currentClickCountText.text = currentClickCount.ToString();
-    }
-
-    public void Click()
-    {
-        currentClickCount++;
         StartCoroutine(CallApi());
     }
 
@@ -52,5 +36,25 @@ public class ClickerController : MonoBehaviour
                 Debug.Log("API Response: " + jsonResponse);
             }
         }
+    }
+
+    //Go to login menu.
+    public void OnGoLoginButton()
+    {
+        loginMenu.SetActive(true);
+        homeMenu.SetActive(false);
+    }
+
+    //Go to registration menu.
+    public void OnGoRegisterButton()
+    {
+        registerMenu.SetActive(true);
+        homeMenu.SetActive(false);
+    }
+
+    //Kill the tab
+    public void OnQuit()
+    {
+        Debug.Log("Quitting game, coward.");
     }
 }
