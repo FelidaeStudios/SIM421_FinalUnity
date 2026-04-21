@@ -41,15 +41,17 @@ public class MenuController : MonoBehaviour
     //Go to login menu.
     public void OnGoLoginButton()
     {
-        loginMenu.SetActive(true);
+        Debug.Log("Login menu");
         homeMenu.SetActive(false);
+        loginMenu.SetActive(true);     
     }
 
     //Go to registration menu.
     public void OnGoRegisterButton()
     {
-        registerMenu.SetActive(true);
         homeMenu.SetActive(false);
+        registerMenu.SetActive(true);
+
     }
 
     //Kill the tab

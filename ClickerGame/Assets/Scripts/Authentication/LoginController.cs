@@ -77,6 +77,8 @@ public class LoginController : MonoBehaviour
 
     public void OnLoginButton()
     {
+        //https://laravel.com/docs/13.x/sanctum
+        //https://stackoverflow.com/questions/42284821/create-token-in-unity-to-send-post-request-to-laravel-controller
         //Reach out to Laravel, confirm credentials, log user in
     }
 

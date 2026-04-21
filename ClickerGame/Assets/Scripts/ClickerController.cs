@@ -6,15 +6,16 @@ using UnityEngine.Networking;
 
 public class ClickerController : MonoBehaviour
 {
-    private int currentClickCount;
+    public GameManager gameManager;
+    private int pointInitial = 1;
+    private int pointGain;
 
     //Network
     private string apiUrl = "http://127.0.0.1:8000/score";
 
     //[UI]
-    public TextMeshProUGUI currentClickCountText;
-    public GameManager gameManager;
-
+    public TextMeshProUGUI currentScoreText;
+    
     void Start()
     {
         //Debug.Log(gameManager.totalClicks);
@@ -23,21 +24,32 @@ public class ClickerController : MonoBehaviour
 
     void Update()
     {
-        //if (!gameManager.isPlaying)
-            //return;
+        currentScoreText.text = GameManager.currentScore.ToString();
 
-        currentClickCountText.text = currentClickCount.ToString();
     }
 
     public void Click()
     {
-        currentClickCount++;
-        StartCoroutine(CallApi());
+        pointGain = pointInitial * GameManager.doubleMultAmount;
+        
+        GameManager.currentScore += pointGain;
+        GameManager.totalScore += pointGain;
+        StartCoroutine(CallApi(pointGain));
     }
 
-    IEnumerator CallApi()
+    /*public void ClickWithMultiplier(int value) //Multiply by designated amount
     {
-        using (UnityWebRequest request = UnityWebRequest.Get(apiUrl))
+        int points;
+
+        points = value * 1;
+        GameManager.currentScore++;
+        StartCoroutine(CallApi(points));
+
+    }*/
+
+    IEnumerator CallApi(int value)
+    {
+        using (UnityWebRequest request = UnityWebRequest.Get(apiUrl+"?score="+value))
         {
             yield return request.SendWebRequest();
 

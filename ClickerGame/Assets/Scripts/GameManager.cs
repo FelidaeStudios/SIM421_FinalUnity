@@ -4,18 +4,23 @@ public class GameManager : MonoBehaviour
 {
     //public bool isPlaying;
     //public GameObject playButton;
-    public static int totalClicks;
+    public static int totalScore;
+    public static int currentScore;
+
+    public static int doubleMultAmount;
+    public static int automateAmount;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        totalScore = 0;
+        currentScore = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log(totalClicks);
+        //Debug.Log(totalScore);
     }
 
     /*public void BeginGame()
