@@ -3,7 +3,7 @@ using UnityEngine;
 public class DoubleMulti : MonoBehaviour
 {
     public int cost;
-    private int multAmount = 2;
+    //private int multAmount;
 
     public void DoubleMultPurchase()
     {

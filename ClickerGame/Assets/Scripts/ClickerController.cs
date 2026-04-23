@@ -13,43 +13,50 @@ public class ClickerController : MonoBehaviour
     //Network
     private string apiUrl = "http://127.0.0.1:8000/score";
 
-    //[UI]
-    public TextMeshProUGUI currentScoreText;
-    
     void Start()
     {
         //Debug.Log(gameManager.totalClicks);
         gameManager = GetComponent<GameManager>();
+        StartCoroutine(Automate());
     }
 
     void Update()
     {
-        currentScoreText.text = GameManager.currentScore.ToString();
-
+        
     }
 
     public void Click()
     {
         pointGain = pointInitial * GameManager.doubleMultAmount;
-        
+        Debug.Log(pointGain);
+
         GameManager.currentScore += pointGain;
         GameManager.totalScore += pointGain;
         StartCoroutine(CallApi(pointGain));
     }
 
-    /*public void ClickWithMultiplier(int value) //Multiply by designated amount
+    IEnumerator Automate()
     {
-        int points;
+        while (true)
+        {
+            yield return new WaitForSeconds(10f);
+            AutomatePoints();
+        }
+    }
 
-        points = value * 1;
-        GameManager.currentScore++;
-        StartCoroutine(CallApi(points));
-
-    }*/
+    public void AutomatePoints()
+    {
+        if (GameManager.automateAmount > 0)
+        {
+            //add one point every 10 seconds for each automate
+            GameManager.currentScore += GameManager.automateAmount * 1;
+            GameManager.totalScore += GameManager.automateAmount * 1;
+        }
+    }
 
     IEnumerator CallApi(int value)
     {
-        using (UnityWebRequest request = UnityWebRequest.Get(apiUrl+"?score="+value))
+        using (UnityWebRequest request = UnityWebRequest.Get(apiUrl+"?score="+GameManager.totalScore+"&currency="+GameManager.currentScore))
         {
             yield return request.SendWebRequest();
 
