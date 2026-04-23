@@ -2044,7 +2044,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: x2
+  m_text: x2 Power
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4355,7 +4355,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: 5 Second Automate
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4445,6 +4445,7 @@ GameObject:
   m_Component:
   - component: {fileID: 758958374}
   - component: {fileID: 758958373}
+  - component: {fileID: 758958375}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -4481,6 +4482,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &758958375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 758958372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc9495eafa5589a43960c7f557522d3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AutomationController
 --- !u!1 &759319666
 GameObject:
   m_ObjectHideFlags: 0
@@ -5747,7 +5760,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Automate
+  m_text: 10 Second Automate
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -5937,7 +5950,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: x3 Power
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -6146,7 +6159,7 @@ GameObject:
   - component: {fileID: 1074496522}
   - component: {fileID: 1074496525}
   m_Layer: 5
-  m_Name: UpgradeButton (1)
+  m_Name: TenSecondAutomateButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6217,8 +6230,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1074496525}
-        m_TargetAssemblyTypeName: Automator, Assembly-CSharp
-        m_MethodName: purchaseAutomator
+        m_TargetAssemblyTypeName: AutomatorPurchase, Assembly-CSharp
+        m_MethodName: TenSecondAutomatePurchase
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8675,7 +8688,7 @@ GameObject:
   - component: {fileID: 1381593398}
   - component: {fileID: 1381593401}
   m_Layer: 5
-  m_Name: UpgradeButton
+  m_Name: DoubleMultUpgradeButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9982,8 +9995,9 @@ GameObject:
   - component: {fileID: 1534349288}
   - component: {fileID: 1534349287}
   - component: {fileID: 1534349286}
+  - component: {fileID: 1534349289}
   m_Layer: 5
-  m_Name: UpgradeButton (3)
+  m_Name: FiveSecondAutomateButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10052,7 +10066,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1534349287}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1534349289}
+        m_TargetAssemblyTypeName: AutomatorPurchase, Assembly-CSharp
+        m_MethodName: FiveSecondAutomatePurchase
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1534349287
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10091,6 +10117,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1534349284}
   m_CullTransparentMesh: 1
+--- !u!114 &1534349289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1534349284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 558c23992b1b95040aa9dc8018e5adc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AutomatorPurchase
+  cost: 10
 --- !u!1 &1575182148
 GameObject:
   m_ObjectHideFlags: 0
@@ -11502,8 +11541,9 @@ GameObject:
   - component: {fileID: 1848177998}
   - component: {fileID: 1848177997}
   - component: {fileID: 1848177996}
+  - component: {fileID: 1848177999}
   m_Layer: 5
-  m_Name: UpgradeButton (2)
+  m_Name: TripleMultUpgradeButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11572,7 +11612,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1848177997}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1848177999}
+        m_TargetAssemblyTypeName: MultiplierPurchase, Assembly-CSharp
+        m_MethodName: TripleMultPurchase
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1848177997
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11611,6 +11663,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1848177994}
   m_CullTransparentMesh: 1
+--- !u!114 &1848177999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1848177994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7b460f419e042c4f8ae31a6eb0b1ea6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MultiplierPurchase
+  cost: 5
 --- !u!1 &1853657446
 GameObject:
   m_ObjectHideFlags: 0

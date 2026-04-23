@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class DoubleMulti : MonoBehaviour
+public class MultiplierPurchase : MonoBehaviour
 {
     public int cost;
     //private int multAmount;
@@ -19,6 +19,24 @@ public class DoubleMulti : MonoBehaviour
             {
                 GameManager.doubleMultAmount += 2;
                 Debug.Log(GameManager.doubleMultAmount);
+            }
+        }
+    }
+
+    public void TripleMultPurchase()
+    {
+        if (GameManager.currentScore >= cost)
+        {
+            GameManager.currentScore -= cost;
+
+            if (GameManager.tripleMultAmount < 3)
+            {
+                GameManager.tripleMultAmount += 2;
+            }
+            else
+            {
+                GameManager.tripleMultAmount += 3;
+                Debug.Log(GameManager.tripleMultAmount);
             }
         }
     }

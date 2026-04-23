@@ -17,7 +17,6 @@ public class ClickerController : MonoBehaviour
     {
         //Debug.Log(gameManager.totalClicks);
         gameManager = GetComponent<GameManager>();
-        StartCoroutine(Automate());
     }
 
     void Update()
@@ -27,31 +26,12 @@ public class ClickerController : MonoBehaviour
 
     public void Click()
     {
-        pointGain = pointInitial * GameManager.doubleMultAmount;
+        pointGain = pointInitial * GameManager.doubleMultAmount * GameManager.tripleMultAmount;
         Debug.Log(pointGain);
 
         GameManager.currentScore += pointGain;
         GameManager.totalScore += pointGain;
         StartCoroutine(CallApi(pointGain));
-    }
-
-    IEnumerator Automate()
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(10f);
-            AutomatePoints();
-        }
-    }
-
-    public void AutomatePoints()
-    {
-        if (GameManager.automateAmount > 0)
-        {
-            //add one point every 10 seconds for each automate
-            GameManager.currentScore += GameManager.automateAmount * 1;
-            GameManager.totalScore += GameManager.automateAmount * 1;
-        }
     }
 
     IEnumerator CallApi(int value)
