@@ -1,74 +1,52 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//using PlayFab;
-//using PlayFab.ClientModels;
 using TMPro;
 using UnityEngine.Networking;
+using System;
 
 public class Leaderboard : MonoBehaviour
 {
     public GameObject leaderboardCanvas;
     public GameObject[] leaderboardEntries;
 
+    [System.Serializable]
+    public class PlayerEntry {
+        public int id;
+        public string playerName;
+        public int score;
+    }  
+
+    [System.Serializable]
+    public class PlayerList {
+        public List<PlayerEntry> data;
+    }
+
     public static Leaderboard instance;
     void Awake() { instance = this; }
 
-    private string apiUrl = "http://127.0.0.1:8000/";
+    private string apiUrl = "http://127.0.0.1:8000/score";
 
     void Start()
     {
-        StartCoroutine(CallApi());
+        //StartCoroutine(CallApi());
+        StartCoroutine(LeaderboardRefresh());
     }
 
-    /*public void OnLoggedIn()
+    IEnumerator LeaderboardRefresh()
     {
-        leaderboardCanvas.SetActive(true);
-        DisplayLeaderboard();
-    }
-
-    public void DisplayLeaderboard()
-    {
-        GetLeaderboardRequest getLeaderboardRequest = new GetLeaderboardRequest
+        while (true)
         {
-            StatisticName = "FastestTime",
-            MaxResultsCount = 10
-        };
-
-        PlayFabClientAPI.GetLeaderboard(getLeaderboardRequest,
-            result => UpdateLeaderboardUI(result.Leaderboard),
-            error => Debug.Log(error.ErrorMessage)
-        );
-    }
-
-    void UpdateLeaderboardUI(List<PlayerLeaderboardEntry> leaderboard)
-    {
-        for (int x = 0; x < leaderboardEntries.Length; x++)
-        {
-            leaderboardEntries[x].SetActive(x < leaderboard.Count);
-            if (x >= leaderboard.Count) continue;
-
-            leaderboardEntries[x].transform.Find("PlayerName").GetComponent<TextMeshProUGUI>().text = (leaderboard[x].Position + 1) + ". " + leaderboard[x].DisplayName;
-            leaderboardEntries[x].transform.Find("ScoreText").GetComponent<TextMeshProUGUI>().text = (-(float)leaderboard[x].StatValue * 0.001f).ToString("F2");
+            yield return new WaitForSeconds(5f);
+            StartCoroutine(CallApi());
         }
     }
 
-    public void SetLeaderboardEntry(int newScore)
-    {
-        ExecuteCloudScriptRequest request = new ExecuteCloudScriptRequest
-        {
-            FunctionName = "UpdateHighscore",
-            FunctionParameter = new { score = newScore }
-        };
-        PlayFabClientAPI.ExecuteCloudScript(request,
-            result => DisplayLeaderboard(),
-            error => Debug.Log(error.ErrorMessage)
-        );
-    }*/
-
     IEnumerator CallApi()
     {
-        using (UnityWebRequest request = UnityWebRequest.Get(apiUrl))
+        string url = apiUrl + "?score=0&currency=0&user_id=0";
+
+        using (UnityWebRequest request = UnityWebRequest.Get(url))
         {
             yield return request.SendWebRequest();
 
@@ -80,8 +58,41 @@ public class Leaderboard : MonoBehaviour
             else
             {
                 string jsonResponse = request.downloadHandler.text;
-                Debug.Log("API Response: " + jsonResponse);
+
+                PlayerEntry[] entries = JsonHelper.FromJson<PlayerEntry>(jsonResponse);
+                
+                for (int i = 0; i < entries.Length && i < leaderboardEntries.Length; i++)
+                {
+                    Transform entry = leaderboardEntries[i].transform;
+                    TextMeshProUGUI userPlace = entry.Find("UserPlaceLabel/UserPlace").GetComponent<TextMeshProUGUI>();
+                    TextMeshProUGUI userId = entry.Find("UserIDLabel/UserID").GetComponent<TextMeshProUGUI>();
+                    TextMeshProUGUI userScore = entry.Find("UserScoreLabel/UserScore").GetComponent<TextMeshProUGUI>();
+
+                    userPlace.text = (i + 1).ToString();
+                    userId.text = entries[i].playerName;
+                    userScore.text = entries[i].score.ToString();
+
+                    userPlace.ForceMeshUpdate();
+                    userId.ForceMeshUpdate();
+                    userScore.ForceMeshUpdate();
+                }
             }
+        }
+    }
+
+    public static class JsonHelper
+    {
+        public static T[] FromJson<T>(string json)
+        {
+            string wrapped = $"{{\"data\":{json}}}";
+            Wrapper<T> wrapper = JsonUtility.FromJson<Wrapper<T>>(wrapped);
+            return wrapper.data;
+        }
+
+        [Serializable]
+        private class Wrapper<T>
+        {
+            public T[] data;
         }
     }
 }

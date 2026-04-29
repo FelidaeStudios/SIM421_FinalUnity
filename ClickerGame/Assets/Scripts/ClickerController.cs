@@ -36,7 +36,7 @@ public class ClickerController : MonoBehaviour
 
     IEnumerator CallApi(int value)
     {
-        using (UnityWebRequest request = UnityWebRequest.Get(apiUrl+"?score="+GameManager.totalScore+"&currency="+GameManager.currentScore))
+        using (UnityWebRequest request = UnityWebRequest.Get(apiUrl+"?score="+GameManager.totalScore+"&currency="+GameManager.currentScore+"&user_id="+GameManager.playerId))
         {
             yield return request.SendWebRequest();
 
